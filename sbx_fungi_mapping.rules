@@ -1,0 +1,29 @@
+
+# -*- mode: Snakemake -*-
+#
+# Rules for generating stats for fungi mapping
+
+rule all_fungi:
+    input:
+        expand(
+            str(MAPPING_FP/'{genome}'/'summary'/'{sample}_{suffix}'),
+            sample=Samples.keys(), genome=GenomeSegments.keys(),
+            suffix = ['counts','coverage'])
+
+rule bam_read_counts:
+    input:
+        bam = str(MAPPING_FP/'{genome}'/'{sample}.bam'),
+        bai = str(MAPPING_FP/'{genome}'/'{sample}.bam.bai')
+    output:
+        str(MAPPING_FP/'{genome}'/'summary'/'{sample}_counts')
+    shell:
+        "samtools idxstats {input.bam} | cut -f 1,3 | sed '$ d' > {output}"
+
+rule bam_coverage:
+    input:
+        bam = str(MAPPING_FP/'{genome}'/'{sample}.bam'),
+        genome = str(GENOME_DIR/"{genome}.fasta")
+    output: 
+        str(MAPPING_FP/'{genome}'/'summary'/'{sample}_coverage')
+    shell: 
+        "bedtools genomecov -ibam {input.bam} -g {input.genome} -bg > {output}"
