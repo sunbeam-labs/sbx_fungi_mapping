@@ -1,4 +1,3 @@
-
 # -*- mode: Snakemake -*-
 #
 # Rules for generating stats for fungi mapping
