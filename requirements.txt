@@ -1,4 +1,1 @@
-channels:
-  - bioconda
-dependencies:
-  - bedtools
+bedtools
