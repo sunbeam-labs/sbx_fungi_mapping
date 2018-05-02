@@ -21,7 +21,7 @@ rule bam_read_counts:
 rule bam_coverage:
     input:
         bam = str(MAPPING_FP/'{genome}'/'{sample}.bam'),
-        genome = str(GENOME_DIR/"{genome}.fasta")
+        genome = str(Cfg['mapping']['genomes_fp']/'{genome}.fasta')
     output: 
         str(MAPPING_FP/'{genome}'/'summary'/'{sample}_coverage')
     shell: 
