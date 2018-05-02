@@ -1,4 +1,4 @@
-# sbx_fungal_mapping
+# sbx_fungal_mapping ✔️
 
 ## Usage
 
